@@ -1,3 +1,3 @@
 # Go Resful API
 
-API Example using Go and Swagger.
+Simple API Example using Go and Swagger.
