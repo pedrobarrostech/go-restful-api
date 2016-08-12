@@ -8,15 +8,11 @@ import (
 	"github.com/emicklei/go-restful/swagger"
 )
 
-// This example is functionally the same as the example in restful-bill-resource.go
-// with the only difference that is served using the restful.DefaultContainer
-
 type Bill struct {
 	Id, Name string
 }
 
 type BillService struct {
-	// normally one would use DAO (data access object)
 	bills map[string]Bill
 }
 
@@ -25,7 +21,7 @@ func (u BillService) Register() {
 	ws.
 		Path("/bills").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
-		Produces(restful.MIME_JSON, restful.MIME_XML) // you can specify this per route as well
+		Produces(restful.MIME_JSON, restful.MIME_XML) 
 
 	ws.Route(ws.GET("/").To(u.findAllBills).
 		// docs
@@ -41,20 +37,17 @@ func (u BillService) Register() {
 		Writes(Bill{})) // on the response
 
 	ws.Route(ws.PUT("/{bill-id}").To(u.updateBill).
-		// docs
 		Doc("update a bill").
 		Operation("updateBill").
 		Param(ws.PathParameter("bill-id", "identifier of the bill").DataType("string")).
-		Reads(Bill{})) // from the request
+		Reads(Bill{})) 
 
 	ws.Route(ws.PUT("").To(u.createBill).
-		// docs
 		Doc("create a bill").
 		Operation("createBill").
-		Reads(Bill{})) // from the request
+		Reads(Bill{})) 
 
 	ws.Route(ws.DELETE("/{bill-id}").To(u.removeBill).
-		// docs
 		Doc("delete a bill").
 		Operation("removeBill").
 		Param(ws.PathParameter("bill-id", "identifier of the bill").DataType("string")))
